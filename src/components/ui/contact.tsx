@@ -45,7 +45,7 @@ const defaultSocialLinks = [
 export const ContactSection: React.FC<ContactSectionProps> = ({
     title = "We can turn your dream project into reality",
     mainMessage = "Let's talk! 👋",
-    contactEmail = "hello@novalogicstudio.com",
+    contactEmail = "nikhil@novalogicstudio.com",
     socialLinks = defaultSocialLinks,
     backgroundImageSrc = "https://images.unsplash.com/photo-1742273330004-ef9c9d228530?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDY0fENEd3V3WEpBYkV3fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&q=60&w=900",
     onSubmit,
