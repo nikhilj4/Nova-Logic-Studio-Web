@@ -1,0 +1,160 @@
+.navContainer {
+    --bounciness: 12;
+    position: relative;
+    display: flex;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 9999px;
+    padding: 4px;
+}
+
+/* The invisible radio inputs that drive the state if we were using pure CSS control. 
+   However, for a Navbar, we might want controlled React state. 
+   But the CSS logic relies on sibling selectors. 
+   To keep the physics exact, I will replicate the radio structure but controlled by React state or just visual mapping.
+   Actually, standard links don't map well to sibling selectors for the "previous/next" morphing logic easily without complex DOM.
+   
+   I will adapt the CSS to use a class-based approach or data-attributes on the wrapper 
+   to define where the "blob" matches. 
+   
+   Actually, the best way to preserve the EXACT bounce physics is to keep the DOM structure:
+   Input (checked) -> Label (Link) complex.
+   
+   Let's try to map the Links to Labels. 
+*/
+
+.navItem {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.navLink {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    color: #9ca3af;
+    /* gray-400 */
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 0.3s;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.navLink:hover {
+    color: #fff;
+}
+
+/* When the item is active (effectively checked) */
+.active .navLink {
+    color: #000;
+    transition-delay: 0.1s;
+    /* Wait for blob to arrive */
+}
+
+
+.selectionIndicatorWrapper {
+    --transition-duration: 0.4s;
+    --morph-factor: 0;
+    width: 25%;
+    /* 4 items = 25% */
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    /* top/left managed by js/css combination or just css if we can */
+    left: 0;
+    top: 0;
+    /* relative to container padding? No, container has padding 4px. */
+    /* If container has padding, absolute positioning 0,0 puts it at border. 
+     We need to account for padding. 
+     Actually, better to put the padding on the items and wrapper logic.
+     Or just set top: 4px; left: 4px; height: calc(100% - 8px);
+  */
+    top: 4px;
+    height: calc(100% - 8px);
+    /* Width is (100% - 8px) / 4 roughly? 
+     Let's do calc since we know the container is flex.
+  */
+    width: calc((100% - 8px) / 4);
+
+    mix-blend-mode: difference;
+    /* Critical for the effect */
+
+    transition-duration: var(--transition-duration);
+    transition-timing-function: cubic-bezier(0.25,
+            calc(var(--bounciness) / 10),
+            0.5,
+            1);
+
+    pointer-events: none;
+    transform: translateX(calc(var(--morph-factor) * 10%));
+
+    /* Scale X/Y for the squeeze effect */
+    scale: calc(1 + var(--morph-factor) * var(--morph-factor) * 0.05) calc(1 - var(--morph-factor) * var(--morph-factor) * 0.1);
+}
+
+.selectionIndicatorWrapper span {
+    background-color: white;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 9999px;
+    transition-duration: calc(1.25 * var(--transition-duration));
+    transition-timing-function: cubic-bezier(0.95,
+            calc(0.5 * var(--bounciness)),
+            0,
+            1);
+}
+
+/* Positions based on active index */
+.pos0 {
+    left: 4px;
+}
+
+.pos1 {
+    left: calc(25% + 2px);
+}
+
+/* 25% of total width? No. 
+   Total width W. 4px padding.
+   Item width = (W - 8px)/4.
+   Pos0 = 4px.
+   Pos1 = 4px + ItemWidth.
+   Pos1 = 4px + W/4 - 2px = 25% + 2px. 
+   Let's check logic.
+   Left should be: 4px + (index * ((100% - 8px) / 4))
+*/
+.pos0 {
+    left: 4px;
+}
+
+.pos1 {
+    left: calc(4px + ((100% - 8px) * 0.25));
+}
+
+.pos2 {
+    left: calc(4px + ((100% - 8px) * 0.50));
+}
+
+.pos3 {
+    left: calc(4px + ((100% - 8px) * 0.75));
+}
+
+
+/* Morphing Logic controlled by a class or variable from JS?
+   To keep `morph-factor` logic from the pure CSS demo, we need to know the direction of movement or interaction.
+   
+   If we hover NEXT active item, morph +1.
+   If we hover PREV active item, morph -1.
+   
+   Implementation Detail:
+   We can calculate `morph-factor` in JS based on (HoverIndex - ActiveIndex).
+   If HoverIndex > ActiveIndex, morph +1 (lean right).
+   If HoverIndex < ActiveIndex, morph -1 (lean left).
+   If distance is > 1, maybe morph +2/-2.
+   
+   This replaces the complex sibling selectors which are hard to map to <a> tags.
+*/
