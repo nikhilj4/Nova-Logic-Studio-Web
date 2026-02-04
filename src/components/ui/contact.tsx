@@ -45,7 +45,7 @@ const defaultSocialLinks = [
 export const ContactSection: React.FC<ContactSectionProps> = ({
     title = "We can turn your dream project into reality",
     mainMessage = "Let's talk! 👋",
-    contactEmail = "nikhil@novalogicstudio.com",
+    contactEmail = "example@gmail.com",
     socialLinks = defaultSocialLinks,
     backgroundImageSrc = "https://images.unsplash.com/photo-1742273330004-ef9c9d228530?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDY0fENEd3V3WEpBYkV3fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&q=60&w=900",
     onSubmit,
@@ -153,11 +153,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <Label htmlFor="name">Your name</Label>
-                                    <Input id="name" name="name" placeholder="John Doe" value={formData.name} onChange={handleChange} required />
+                                    <Input id="name" name="name" placeholder="Shiva" value={formData.name} onChange={handleChange} required />
                                 </div>
                                 <div className="space-y-2">
                                     <Label htmlFor="email">Email</Label>
-                                    <Input id="email" name="email" type="email" placeholder="john@example.com" value={formData.email} onChange={handleChange} required />
+                                    <Input id="email" name="email" type="email" placeholder="example@gmail.com" value={formData.email} onChange={handleChange} required />
                                 </div>
                             </div>
 
