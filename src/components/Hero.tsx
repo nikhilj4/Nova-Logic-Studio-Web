@@ -24,8 +24,9 @@ export default function Hero() {
                     alt="Nova Logic Dashboard"
                     height={720}
                     width={1400}
-                    className="mx-auto rounded-2xl object-cover h-full object-left-top"
+                    className="mx-auto rounded-2xl object-cover w-full h-full object-top"
                     draggable={false}
+                    priority
                 />
             </ContainerScroll>
 

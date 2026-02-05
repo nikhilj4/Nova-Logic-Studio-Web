@@ -61,7 +61,7 @@ export function ServiceCards3D({ services }: ServiceCards3DProps) {
                                 ${index === 8 ? '[&>div]:!top-[30vh] [&>div]:!left-[30vw]' : ''}
                             `}
                         >
-                            <div className="relative h-[25vh] w-[25vw] min-w-[280px] min-h-[200px]">
+                            <div className="relative h-[50vh] w-[80vw] md:h-[25vh] md:w-[25vw] min-w-[280px] min-h-[320px] md:min-h-[200px]">
                                 <div
                                     className={`h-full w-full rounded-2xl p-6 flex flex-col justify-between
                                     border border-white/10 backdrop-blur-sm
