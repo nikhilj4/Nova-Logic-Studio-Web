@@ -21,15 +21,6 @@ const projects: iCardItem[] = [
         color: "black",
         textColor: "white",
     },
-    {
-        title: "Digital Portfolio",
-        description: "A minimalist, high-impact personal brand website designed for creative professionals.",
-        tag: "web-dev",
-        src: "/assets/projects/profile.jpeg",
-        link: "#",
-        color: "black",
-        textColor: "white",
-    },
 ];
 
 export default function FeaturedProjects() {
