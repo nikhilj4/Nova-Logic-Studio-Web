@@ -1,7 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Image from "next/image";
-import { ServiceZoomParallax } from "@/components/ServiceZoomParallax";
 import { ContactSection } from "@/components/ui/contact";
 import MarqueeSection from "@/components/MarqueeSection";
 import FeaturedProjects from "@/components/FeaturedProjects";
@@ -17,7 +16,6 @@ export default function Home() {
       <Hero />
       <MarqueeSection />
 
-      <ServiceZoomParallax />
       <WhyChooseUs />
       <TextRevealByWord text="Nova Logic Studio. We build digital experiences that matter. Turning complex problems into elegant solutions." />
       <FeaturedProjects />

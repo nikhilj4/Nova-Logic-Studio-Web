@@ -45,7 +45,7 @@ const defaultSocialLinks = [
 export const ContactSection: React.FC<ContactSectionProps> = ({
     title = "We can turn your dream project into reality",
     mainMessage = "Let's talk! 👋",
-    contactEmail = "example@gmail.com",
+    contactEmail = "novalogic.studio@gmail.com",
     socialLinks = defaultSocialLinks,
     backgroundImageSrc = "https://images.unsplash.com/photo-1742273330004-ef9c9d228530?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDY0fENEd3V3WEpBYkV3fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&q=60&w=900",
     onSubmit,
@@ -56,6 +56,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
         message: '',
         projectType: [] as string[],
     });
+
+    const [isSubmitting, setIsSubmitting] = React.useState(false);
+    const [submitStatus, setSubmitStatus] = React.useState<'idle' | 'success' | 'error'>('idle');
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -73,11 +76,78 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
         });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        onSubmit?.(formData);
-        console.log("Form submitted:", formData);
-        // You might want to add a success message or clear the form here
+        setIsSubmitting(true);
+        setSubmitStatus('idle');
+
+        // Check if Formspree is configured
+        const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
+
+        // If no Formspree ID, use mailto as fallback
+        if (!formspreeId || formspreeId === 'YOUR_FORM_ID_HERE') {
+            // Create mailto link with pre-filled content
+            const subject = encodeURIComponent(`Contact Form: ${formData.name}`);
+            const body = encodeURIComponent(
+                `Name: ${formData.name}\n` +
+                `Email: ${formData.email}\n` +
+                `Project Type: ${formData.projectType.join(', ')}\n\n` +
+                `Message:\n${formData.message}`
+            );
+            const mailtoLink = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
+
+            // Open email client
+            window.location.href = mailtoLink;
+
+            setSubmitStatus('success');
+            setFormData({
+                name: '',
+                email: '',
+                message: '',
+                projectType: [],
+            });
+            setIsSubmitting(false);
+            return;
+        }
+
+        try {
+            // Using Formspree for email delivery
+            const formspreeEndpoint = `https://formspree.io/f/${formspreeId}`;
+
+            const response = await fetch(formspreeEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
+                    message: formData.message,
+                    projectType: formData.projectType.join(', '),
+                    _replyto: formData.email,
+                    _subject: `New Contact Form Submission from ${formData.name}`,
+                }),
+            });
+
+            if (response.ok) {
+                setSubmitStatus('success');
+                // Clear form
+                setFormData({
+                    name: '',
+                    email: '',
+                    message: '',
+                    projectType: [],
+                });
+                onSubmit?.(formData);
+            } else {
+                setSubmitStatus('error');
+            }
+        } catch (error) {
+            console.error('Form submission error:', error);
+            setSubmitStatus('error');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const projectTypeOptions = [
@@ -157,7 +227,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                                 </div>
                                 <div className="space-y-2">
                                     <Label htmlFor="email">Email</Label>
-                                    <Input id="email" name="email" type="email" placeholder="example@gmail.com" value={formData.email} onChange={handleChange} required />
+                                    <Input id="email" name="email" type="email" placeholder="your.email@gmail.com" value={formData.email} onChange={handleChange} required />
                                 </div>
                             </div>
 
@@ -177,23 +247,44 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                             <div className="space-y-4">
                                 <p className="text-gray-400 text-sm">I'm looking for...</p>
                                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                                    {projectTypeOptions.map((option) => (
-                                        <div key={option} className="flex items-center space-x-2">
-                                            <Checkbox
-                                                id={option.replace(/\s/g, '-').toLowerCase()}
-                                                checked={formData.projectType.includes(option)}
-                                                onCheckedChange={(checked) => handleCheckboxChange(option, checked as boolean)}
-                                            />
-                                            <Label htmlFor={option.replace(/\s/g, '-').toLowerCase()} className="text-sm font-normal text-gray-300 cursor-pointer">
-                                                {option}
-                                            </Label>
-                                        </div>
-                                    ))}
+                                    {projectTypeOptions.map((option) => {
+                                        const optionId = option.replace(/\s/g, '-').toLowerCase();
+                                        return (
+                                            <div key={option} className="flex items-center space-x-2">
+                                                <Checkbox
+                                                    id={optionId}
+                                                    checked={formData.projectType.includes(option)}
+                                                    onCheckedChange={(checked) => handleCheckboxChange(option, checked as boolean)}
+                                                />
+                                                <Label
+                                                    htmlFor={optionId}
+                                                    className="text-sm font-normal text-gray-300 cursor-pointer select-none"
+                                                    onClick={() => handleCheckboxChange(option, !formData.projectType.includes(option))}
+                                                >
+                                                    {option}
+                                                </Label>
+                                            </div>
+                                        );
+                                    })}
                                 </div>
                             </div>
 
-                            <Button type="submit" className="w-full h-12 text-lg font-semibold rounded-full bg-white text-black hover:bg-gray-200 transition-all shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:shadow-[0_0_25px_rgba(255,255,255,0.5)]">
-                                Send a message
+                            {submitStatus === 'success' && (
+                                <div className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 text-sm">
+                                    ✅ Message sent successfully! We'll get back to you soon.
+                                </div>
+                            )}
+                            {submitStatus === 'error' && (
+                                <div className="p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-sm">
+                                    ❌ Failed to send message. Please try emailing us directly at {contactEmail}
+                                </div>
+                            )}
+                            <Button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className="w-full h-12 text-lg font-semibold rounded-full bg-white text-black hover:bg-gray-200 transition-all shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:shadow-[0_0_25px_rgba(255,255,255,0.5)] disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                {isSubmitting ? 'Sending...' : 'Send a message'}
                             </Button>
                         </form>
                     </div>
