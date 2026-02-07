@@ -3,10 +3,10 @@ import Hero from "@/components/Hero";
 import Image from "next/image";
 import { ContactSection } from "@/components/ui/contact";
 import MarqueeSection from "@/components/MarqueeSection";
-import FeaturedProjects from "@/components/FeaturedProjects";
 import { TextRevealByWord } from "@/components/ui/text-reveal";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import ToolsSection from "@/components/ToolsSection";
+import FAQSection from "@/components/FAQSection";
 
 
 export default function Home() {
@@ -17,9 +17,13 @@ export default function Home() {
       <MarqueeSection />
 
       <WhyChooseUs />
-      <TextRevealByWord text="Nova Logic Studio. We build digital experiences that matter. Turning complex problems into elegant solutions." />
-      <FeaturedProjects />
+      <TextRevealByWord
+        text="Nova Logic Studio. We build digital experiences that matter. Turning complex problems into elegant solutions."
+        highlightWords={["Nova", "Logic", "Studio", "elegant"]}
+      />
       <ToolsSection />
+
+      <FAQSection />
 
       <ContactSection />
 

@@ -12,7 +12,7 @@ interface ContactSectionProps {
     /**
      * The title for the contact section.
      */
-    title?: string;
+    title?: React.ReactNode;
     /**
      * The subtitle or main message for the introductory part.
      */
@@ -43,7 +43,7 @@ const defaultSocialLinks = [
 ];
 
 export const ContactSection: React.FC<ContactSectionProps> = ({
-    title = "We can turn your dream project into reality",
+    title = <>We can turn your <span className="text-primary font-script">dream</span> project into <span className="text-primary font-script">reality</span></>,
     mainMessage = "Let's talk! 👋",
     contactEmail = "novalogic.studio@gmail.com",
     socialLinks = defaultSocialLinks,
@@ -157,7 +157,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
     ];
 
     return (
-        <section id="contact" className="relative min-h-screen w-full overflow-hidden bg-black text-white scroll-mt-20">
+        <section id="contact" className="relative min-h-screen w-full overflow-hidden bg-background text-foreground scroll-mt-20">
             {/* Background Image and Animated Bubbles */}
             {/* Animated Bubbles Container */}
             <div className="absolute inset-0 overflow-hidden">
@@ -166,7 +166,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     {Array.from({ length: 15 }).map((_, i) => (
                         <div
                             key={i}
-                            className="absolute bg-white/10 rounded-full animate-bubble opacity-0"
+                            className="absolute bg-primary/10 rounded-full animate-bubble opacity-0"
                             style={{
                                 width: `${Math.random() * 20 + 10}px`,
                                 height: `${Math.random() * 20 + 10}px`,
@@ -187,57 +187,47 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full max-w-7xl p-4 md:p-8 rounded-xl">
                     {/* Left Side: Title */}
                     <div className="flex flex-col justify-center lg:justify-end p-4 lg:p-8 space-y-6">
-                        <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold text-white leading-tight drop-shadow-lg lg:max-w-2xl -mt-[100px]">
+                        <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold font-heading text-foreground leading-tight drop-shadow-lg lg:max-w-2xl lg:-mt-[100px]">
                             {title}
                         </h1>
                     </div>
 
                     {/* Right Side: Contact Form */}
-                    <div className="bg-zinc-900/80 backdrop-blur-md p-6 md:p-8 rounded-2xl border border-white/10 shadow-[0_15px_40px_rgba(0,0,0,0.6),0_8px_20px_rgba(0,0,0,0.4),0_0_60px_rgba(255,255,255,0.08)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.7),0_10px_25px_rgba(0,0,0,0.5),0_0_80px_rgba(255,255,255,0.12)] transition-shadow duration-300">
+                    <div className="bg-card/80 backdrop-blur-md p-6 md:p-8 rounded-2xl border border-white/10 shadow-[0_15px_40px_rgba(0,0,0,0.6),0_8px_20px_rgba(0,0,0,0.4),0_0_60px_rgba(255,255,255,0.08)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.7),0_10px_25px_rgba(0,0,0,0.5),0_0_80px_rgba(255,255,255,0.12)] transition-shadow duration-300">
 
-                        <h2 className="text-2xl font-bold text-white mb-6">{mainMessage}</h2>
+                        <h2 className="text-2xl font-bold font-heading text-foreground mb-6">{mainMessage}</h2>
 
                         {/* Email & Socials */}
                         <div className="mb-6">
-                            <p className="text-gray-400 mb-2">Mail us at</p>
-                            <a href={`mailto:${contactEmail}`} className="text-white hover:text-gray-300 hover:underline font-medium text-lg flex items-center gap-2">
+                            <p className="text-muted-foreground mb-2 font-body">Mail us at</p>
+                            <a href={`mailto:${contactEmail}`} className="text-foreground hover:text-muted-foreground hover:underline font-medium text-lg flex items-center gap-2">
                                 <Mail size={18} /> {contactEmail}
                             </a>
-                            <div className="flex items-center space-x-3 mt-4">
-                                <span className="text-gray-500 text-sm">OR FIND US ON</span>
-                                {socialLinks.map((link) => (
-                                    <Button key={link.id} variant="outline" size="icon" asChild className="rounded-full">
-                                        <a href={link.href} aria-label={link.name}>
-                                            {link.icon}
-                                        </a>
-                                    </Button>
-                                ))}
-                            </div>
                         </div>
 
                         <hr className="my-6 border-white/10" />
 
                         {/* Form */}
                         <form onSubmit={handleSubmit} className="space-y-6">
-                            <p className="text-gray-400">Leave us a brief message</p>
+                            <p className="text-muted-foreground font-body">Leave us a brief message</p>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <Label htmlFor="name">Your name</Label>
-                                    <Input id="name" name="name" placeholder="Shiva" value={formData.name} onChange={handleChange} required />
+                                    <Label htmlFor="name" className="text-foreground font-body">Your name</Label>
+                                    <Input id="name" name="name" placeholder="Shiva" value={formData.name} onChange={handleChange} required className="bg-background/50 border-white/10 text-foreground placeholder:text-muted-foreground/50" />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="email">Email</Label>
-                                    <Input id="email" name="email" type="email" placeholder="your.email@gmail.com" value={formData.email} onChange={handleChange} required />
+                                    <Label htmlFor="email" className="text-foreground font-body">Email</Label>
+                                    <Input id="email" name="email" type="email" placeholder="your.email@gmail.com" value={formData.email} onChange={handleChange} required className="bg-background/50 border-white/10 text-foreground placeholder:text-muted-foreground/50" />
                                 </div>
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="message">Briefly describe your project...</Label>
+                                <Label htmlFor="message" className="text-foreground font-body">Briefly describe your project...</Label>
                                 <Textarea
                                     id="message"
                                     name="message"
                                     placeholder="I have an idea for..."
-                                    className="min-h-[100px]"
+                                    className="min-h-[100px] bg-background/50 border-white/10 text-foreground placeholder:text-muted-foreground/50"
                                     value={formData.message}
                                     onChange={handleChange}
                                     required
@@ -245,7 +235,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                             </div>
 
                             <div className="space-y-4">
-                                <p className="text-gray-400 text-sm">I'm looking for...</p>
+                                <p className="text-muted-foreground text-sm font-body">I'm looking for...</p>
                                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                                     {projectTypeOptions.map((option) => {
                                         const optionId = option.replace(/\s/g, '-').toLowerCase();
@@ -255,10 +245,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                                                     id={optionId}
                                                     checked={formData.projectType.includes(option)}
                                                     onCheckedChange={(checked) => handleCheckboxChange(option, checked as boolean)}
+                                                    className="border-white/20 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
                                                 />
                                                 <Label
                                                     htmlFor={optionId}
-                                                    className="text-sm font-normal text-gray-300 cursor-pointer select-none"
+                                                    className="text-sm font-normal text-muted-foreground cursor-pointer select-none"
                                                     onClick={() => handleCheckboxChange(option, !formData.projectType.includes(option))}
                                                 >
                                                     {option}
@@ -282,7 +273,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                             <Button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full h-12 text-lg font-semibold rounded-full bg-white text-black hover:bg-gray-200 transition-all shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:shadow-[0_0_25px_rgba(255,255,255,0.5)] disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full h-12 text-lg font-semibold rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-[0_0_15px_rgba(245,143,124,0.3)] hover:shadow-[0_0_25px_rgba(245,143,124,0.5)] disabled:opacity-50 disabled:cursor-not-allowed font-body"
                             >
                                 {isSubmitting ? 'Sending...' : 'Send a message'}
                             </Button>

@@ -34,20 +34,20 @@ export default function StackFeatureSection() {
     const iconsPerOrbit = Math.ceil(iconConfigs.length / orbitCount);
 
     return (
-        <section className="relative max-w-6xl mx-auto my-32 pl-10 flex items-center justify-between h-[30rem] border border-white/10 bg-black overflow-hidden rounded-3xl">
+        <section className="relative max-w-6xl mx-auto my-32 pl-10 flex items-center justify-between h-[30rem] border border-white/10 bg-background overflow-hidden rounded-3xl">
             {/* Left side: Heading and Text */}
             <div className="w-1/2 z-10">
-                <h1 className="text-4xl sm:text-6xl font-bold mb-4 text-white">
-                    Our Tech Stack
+                <h1 className="text-4xl sm:text-6xl font-bold mb-4 text-foreground font-heading">
+                    Our <span className="text-primary font-script">Tech Stack</span>
                 </h1>
-                <p className="text-gray-400 mb-6 max-w-lg">
+                <p className="text-muted-foreground mb-6 max-w-lg font-body">
                     We use cutting-edge technologies to build scalable, high-performance web applications that drive results.
                 </p>
                 <div className="flex items-center gap-3">
-                    <Button variant="default" asChild>
+                    <Button variant="default" asChild className="bg-primary text-primary-foreground hover:bg-primary/90 font-body">
                         <Link href="#contact">Get Started</Link>
                     </Button>
-                    <Button variant="outline" asChild>
+                    <Button variant="outline" asChild className="border-primary/20 hover:bg-primary/10 text-foreground font-body">
                         <Link href="#services">Our Services</Link>
                     </Button>
                 </div>
@@ -57,7 +57,7 @@ export default function StackFeatureSection() {
             <div className="relative w-1/2 h-full flex items-center justify-start overflow-hidden">
                 <div className="relative w-[50rem] h-[50rem] translate-x-[50%] flex items-center justify-center">
                     {/* Center Circle */}
-                    <div className="w-24 h-24 rounded-full bg-gray-800 shadow-lg flex items-center justify-center border border-white/10">
+                    <div className="w-24 h-24 rounded-full bg-card shadow-lg flex items-center justify-center border border-white/10">
                         <FaReact className="w-12 h-12 text-blue-400" />
                     </div>
 

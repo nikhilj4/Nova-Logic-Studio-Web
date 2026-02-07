@@ -1,21 +1,29 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Playfair_Display, Questrial, Caveat } from "next/font/google"; // Playfair Display is closer to Migra's sharp elegance
 import "./globals.css";
 import LiquidEther from "@/components/ui/LiquidEther";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const headingFont = Playfair_Display({
+  weight: "700",
   subsets: ["latin"],
+  variable: "--font-heading",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const bodyFont = Questrial({
+  weight: "400",
   subsets: ["latin"],
+  variable: "--font-body",
+});
+
+const scriptFont = Caveat({
+  weight: "700",
+  subsets: ["latin"],
+  variable: "--font-script",
 });
 
 export const metadata: Metadata = {
-  title: "Nova Logic Studio | Best Price & Stunning UI",
-  description: "Nova Logic Studio provides premium web development services for photographers, architects, and more with stunning UI and best prices.",
+  title: "Nova Logic Studio",
+  description: "Crafting Digital Experiences",
 };
 
 export default function RootLayout({
@@ -24,13 +32,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en">
+      <body className={`${headingFont.variable} ${bodyFont.variable} ${scriptFont.variable} font-body antialiased bg-[#2C2B30] text-[#D6D6D6]`}>
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none' }}>
           <LiquidEther
-            colors={['#1a1a2e', '#16213e', '#0f3460']}
+            colors={['#2C2B30', '#4F4F51', '#E65151']}
             mouseForce={15}
             cursorSize={80}
             isViscous={true}

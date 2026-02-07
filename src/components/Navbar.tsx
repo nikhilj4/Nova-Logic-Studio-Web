@@ -12,7 +12,7 @@ import Image from 'next/image';
 export default function Navbar() {
     const navItems = [
         { name: 'Home', url: '#', icon: Home },
-        { name: 'Services', url: '#services', icon: Layers },
+        { name: 'Services', url: '#why-choose-us', icon: Layers },
         { name: 'Projects', url: '#projects', icon: Briefcase },
         { name: 'Contact', url: '#contact', icon: Phone }
     ];
