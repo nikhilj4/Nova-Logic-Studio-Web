@@ -151,9 +151,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
     };
 
     const projectTypeOptions = [
-        'Website', 'Mobile App', 'Web App', 'E-Commerce',
-        'Brand Identity', '3D & Animation', 'Social Media Marketing',
-        'Brand Strategy & Consulting', 'Other'
+        'Website', 'Web App', 'E-Commerce', 'Brand Identity',
+        'Slot Booking Web', 'Event Booking Web', 'Personal Portfolio',
+        'Work Showcase Web', 'Other'
     ];
 
     return (

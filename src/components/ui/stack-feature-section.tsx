@@ -55,7 +55,7 @@ export default function StackFeatureSection() {
 
             {/* Right side: Orbit animation cropped to 1/4 */}
             <div className="relative w-full lg:w-1/2 h-[20rem] lg:h-full flex items-center justify-center lg:justify-start overflow-hidden">
-                <div className="relative w-[40rem] h-[40rem] lg:w-[50rem] lg:h-[50rem] translate-x-0 lg:translate-x-[50%] flex items-center justify-center">
+                <div className="relative w-[40rem] h-[40rem] lg:w-[50rem] lg:h-[50rem] scale-[0.55] sm:scale-75 md:scale-90 lg:scale-100 origin-center translate-x-0 lg:translate-x-[50%] flex items-center justify-center">
                     {/* Center Circle */}
                     <div className="w-24 h-24 rounded-full bg-card shadow-lg flex items-center justify-center border border-white/10">
                         <FaReact className="w-12 h-12 text-blue-400" />

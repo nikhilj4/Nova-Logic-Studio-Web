@@ -11,7 +11,7 @@ import FAQSection from "@/components/FAQSection";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
+    <main className="min-h-screen text-white selection:bg-white selection:text-black">
       <Navbar />
       <Hero />
       <MarqueeSection />
