@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Questrial, Caveat } from "next/font/google"; // Playfair Display is closer to Migra's sharp elegance
 import "./globals.css";
+import { FloatingInstagram } from "@/components/ui/floating-instagram";
 
 const headingFont = Playfair_Display({
   weight: "700",
@@ -41,6 +42,9 @@ export default function RootLayout({
         <div style={{ position: 'relative', zIndex: 1 }}>
           {children}
         </div>
+
+        {/* Client-side floating components */}
+        <FloatingInstagram />
       </body>
     </html>
   );
