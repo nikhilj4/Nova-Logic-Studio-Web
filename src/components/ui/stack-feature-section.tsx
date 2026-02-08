@@ -34,16 +34,16 @@ export default function StackFeatureSection() {
     const iconsPerOrbit = Math.ceil(iconConfigs.length / orbitCount);
 
     return (
-        <section className="relative max-w-6xl mx-auto my-12 lg:my-32 p-6 lg:p-0 lg:pl-10 flex flex-col lg:flex-row items-center justify-between min-h-[40rem] lg:h-[30rem] border border-white/10 bg-background overflow-hidden rounded-3xl">
+        <section className="relative max-w-6xl mx-auto my-12 lg:my-32 p-6 flex flex-col lg:flex-row items-center justify-between min-h-[40rem] lg:h-[30rem] border border-white/10 bg-background overflow-hidden rounded-3xl">
             {/* Left side: Heading and Text */}
-            <div className="w-full lg:w-1/2 z-10 text-center lg:text-left mb-10 lg:mb-0">
+            <div className="w-full lg:w-1/2 z-10 text-center mb-10 lg:mb-0">
                 <h1 className="text-4xl sm:text-6xl font-bold mb-4 text-foreground font-heading">
                     Our <span className="text-primary font-script">Tech Stack</span>
                 </h1>
-                <p className="text-muted-foreground mb-6 max-w-lg mx-auto lg:mx-0 font-body">
+                <p className="text-muted-foreground mb-6 max-w-lg mx-auto font-body">
                     We use cutting-edge technologies to build scalable, high-performance web applications that drive results.
                 </p>
-                <div className="flex items-center justify-center lg:justify-start gap-3">
+                <div className="flex items-center justify-center gap-3">
                     <Button variant="default" asChild className="bg-primary text-primary-foreground hover:bg-primary/90 font-body">
                         <Link href="#contact">Get Started</Link>
                     </Button>

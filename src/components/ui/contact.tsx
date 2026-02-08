@@ -390,7 +390,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
             </div>
 
             {/* Main Content Overlay */}
-            <div className="relative z-10 flex flex-col items-center justify-center w-full min-h-screen p-4 md:p-8 lg:p-12">
+            <div className="relative z-10 flex flex-col items-center justify-start w-full min-h-screen p-4 md:p-8 lg:p-12 pt-24 md:pt-32">
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full max-w-7xl p-4 md:p-8 rounded-xl items-center">
                     {/* Left Side: Title */}
