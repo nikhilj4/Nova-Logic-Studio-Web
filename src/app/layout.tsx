@@ -23,6 +23,11 @@ const scriptFont = Caveat({
 export const metadata: Metadata = {
   title: "Nova Logic Studio",
   description: "Crafting Digital Experiences",
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({
